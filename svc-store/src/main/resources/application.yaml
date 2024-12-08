@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: svc-store
+
+server:
+  port: 8081
