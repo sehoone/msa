@@ -9,7 +9,8 @@ spring:
       # - LoggingGlobalFilter
       routes: # 게이트웨이 설정
       - id: svcl-store # 서비스 ID
-        uri: http://localhost:8081 # 서비스 URI
+        # uri: http://localhost:8081 # 서비스 URI
+        uri: lb://svc-store # Eureka에 등록된 서비스 이름
         predicates:
         # https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway/request-predicates-factories.html
         # Path: 특정 경로로 요청이 들어왔을 때만 전달할 수 있도록 설정
@@ -19,8 +20,27 @@ spring:
         - CustomStoreLoggingFilter
         # https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway/gatewayfilter-factories.html
         # 위의 링크에서 AddRequestHeader=X-Request-red, blue 과 기본적으로 제공해주는 필터가 많이 있음
-        
+
+      # - id: svcl-order
+      #   # uri: http://localhost:8082
+      #   uri: lb://svc-order
+      #   predicates:
+      #   - Path=/order/**
+      #   filters:
+      #   - CustomOrderLoggingFilter  
 
 # 서비스 포트
 server:
   port: 80
+
+# Eureka 설정
+eureka:
+  instance:
+    # instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.ip-address:${random.value}} # IP와 랜덤 문자열을 통해 id를 생성
+
+  client:
+    register-with-eureka: true # Eureka 서버에 등록. default는 true 디폴트이기 때문에 생략 가능
+    fetch-registry: true # Eureka 서버의 정보를 가져옴. default는 true 디폴트이기 때문에 생략 가능
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Eureka 서버 주소. 유레카 서버가 다중일 경우 콤마로 구분하여 여러개 설정 가능

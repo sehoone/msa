@@ -2,5 +2,16 @@ spring:
   application:
     name: svc-store
 
+# Eureka 설정
+eureka:
+  instance:
+    # instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.ip-address:${random.value}} # IP와 랜덤 문자열을 통해 id를 생성
+
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Eureka 서버 주소
+
 server:
-  port: 8081
+  # port: 8081
+  port: 0 # 랜덤 포트로 설정
