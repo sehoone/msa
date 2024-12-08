@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: eureka
+
+# Eureka Server 설정
+eureka:
+  client:
+    register-with-eureka: false # 유레카 서버를 registry에 등록할지 여부. default는 true
+    fetch-registry: false # registry에 있는 정보를 가져올지 여부. default는 true
+
+server:
+  port: 8761
