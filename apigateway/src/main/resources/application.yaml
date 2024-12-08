@@ -17,6 +17,9 @@ spring:
         filters:
         # 커프텀 필터 설정. 커스텀 로그가 글로벌 필터보다 먼저 실행됨. 커스텀 필터가 감싸고 있다고 생각하면 됨
         - CustomStoreLoggingFilter
+        # https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway/gatewayfilter-factories.html
+        # 위의 링크에서 AddRequestHeader=X-Request-red, blue 과 기본적으로 제공해주는 필터가 많이 있음
+        
 
 # 서비스 포트
 server:
